@@ -13,7 +13,7 @@
     "email": "diego.antonelli@mendix.com"
   },
   "scripts": {
-    "test": "mocha ./generators/tests/*"
+    "test": "mocha ./tests/*"
   },
   "files": [
     "generators"
