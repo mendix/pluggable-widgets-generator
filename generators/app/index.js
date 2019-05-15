@@ -32,13 +32,11 @@ class MxGenerator extends Generator {
          * Test if a widget folder was passed by argument and try to create the new folder
          */
         if(args.length > 0){
-            const dir = args.map(arg => arg.replace(/(^|\s)\S/g, l => l.toUpperCase())).join("");
+            const dir = args.map(arg => arg.replace(/(^|\s)\S/g, l => l.toLowerCase())).join("-");
+            const name = args.map(arg => arg.replace(/(^|\s)\S/g, l => l.toUpperCase())).join("");
             if (dir) {
-                this.widgetParamName = dir;
-                if (!fsExtra.existsSync(dir)) {
-                    fsExtra.mkdirSync(dir);
-                    this.destinationRoot(dir);
-                }
+                this.dir = dir;
+                this.widgetParamName = name;
             }
         }
     }
@@ -48,12 +46,17 @@ class MxGenerator extends Generator {
 
         this.FINISHED = false;
 
-        if (!extfs.isEmptySync(this.destinationRoot())) {
+        if (!this.dir && !extfs.isEmptySync(this.destinationRoot())) {
             this.log(banner);
             this.log(text.DIR_NOT_EMPTY_ERROR);
             this.FINISHED = true;
             done();
-        } else {
+        }else if(this.dir && fsExtra.existsSync(this.dir) && !extfs.isEmptySync(this.dir)){
+            this.log(banner);
+            this.log(text.DIR_NOT_EMPTY_ERROR);
+            this.FINISHED = true;
+            done();
+        }else{
             done();
         }
     }
@@ -383,6 +386,12 @@ class MxGenerator extends Generator {
 
     writing() {
         if(this.props) {
+            if(this.dir) {
+                if (!fsExtra.existsSync(this.dir)) {
+                    fsExtra.mkdirSync(this.dir);
+                }
+                this.destinationRoot(this.dir);
+            }
             this._defineProperties();
             this._writeWidgetXML();
             this._copyUnitTests();
