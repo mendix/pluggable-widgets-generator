@@ -77,7 +77,7 @@ describe("Generating tests for native", function() {
                     assert.file(correctPath + `/dist/${props.version}/${props.packagePath}.${props.widgetName}.mpk`);
                 })
                 .then(() => {
-                    spawnCommand.spawnCommandSync("npm", ["run", "test:unit"], { cwd: correctPath });
+                    spawnCommand.spawnCommandSync("npm", ["run", "test:unit", "--", "-u"], { cwd: correctPath });
                 })
                 .then(() => {
                     assert.file(correctPath + "/dist/coverage/clover.xml");
