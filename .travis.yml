@@ -4,7 +4,8 @@ cache: npm
 branches:
     only:
         - master
-
+node_js:
+  - "10.15.0"
 jobs:
     include:
         - name: "Test"
