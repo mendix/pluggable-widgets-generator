@@ -85,10 +85,4 @@ describe("Generating tests for web", function() {
                 });
         });
     });
-
-    after(function() {
-        const correctPath = path.join(__dirname, "../outputs");
-        spawnCommand.spawnCommandSync("git", ["add", "."], { cwd: correctPath });
-        spawnCommand.spawnCommandSync("git", ["commit", "-m", "aut-test: Adding files from web outputs"], { cwd: correctPath });
-    });
 });
