@@ -50,15 +50,12 @@ class MxGenerator extends Generator {
             this.log(banner);
             this.log(text.DIR_NOT_EMPTY_ERROR);
             this.FINISHED = true;
-            done();
         }else if(this.dir && fsExtra.existsSync(this.dir) && !extfs.isEmptySync(this.dir)){
             this.log(banner);
             this.log(text.DIR_NOT_EMPTY_ERROR);
             this.FINISHED = true;
-            done();
-        }else{
-            done();
         }
+        done();
     }
 
     prompting() {
