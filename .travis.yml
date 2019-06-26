@@ -7,7 +7,3 @@ branches:
 node_js:
   - "12.4.0"
   - "10.15.0"
-jobs:
-    include:
-        - name: "Test"
-          script: npm run test
